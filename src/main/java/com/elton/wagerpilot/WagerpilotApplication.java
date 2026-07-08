@@ -1,4 +1,4 @@
-package com.example.wagerpilot;
+package com.elton.wagerpilot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

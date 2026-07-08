@@ -1,4 +1,4 @@
-package com.example.wagerpilot;
+package com.elton.wagerpilot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
