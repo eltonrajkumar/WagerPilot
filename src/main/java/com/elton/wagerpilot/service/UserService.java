@@ -3,6 +3,7 @@ package com.elton.wagerpilot.service;
 import com.elton.wagerpilot.dto.RegisterRequest;
 import com.elton.wagerpilot.entity.User;
 import com.elton.wagerpilot.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,10 +11,11 @@ import java.time.LocalDateTime;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
-
+        this.passwordEncoder = passwordEncoder;
     }
 
 public String  printMessage(){
@@ -27,13 +29,15 @@ public String  printMessage(){
         if(userRepository.existsByUsername(request.getUsername())){
             return "Username already exists";
         }
+
+
         try {
 
             User user = new User();
 
             user.setUsername(request.getUsername());
             user.setEmail(request.getEmail());
-            user.setPassword(request.getPassword());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setCreatedAt(LocalDateTime.now());
 
             userRepository.save(user);

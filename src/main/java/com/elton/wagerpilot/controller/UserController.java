@@ -3,6 +3,7 @@ package com.elton.wagerpilot.controller;
 
 import com.elton.wagerpilot.dto.RegisterRequest;
 import com.elton.wagerpilot.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public String test(){
         return userService.printMessage();
 }
 @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request){
+    public String register(@RequestBody @Valid RegisterRequest request){
         return userService.registerUser(request);
 }
 }
