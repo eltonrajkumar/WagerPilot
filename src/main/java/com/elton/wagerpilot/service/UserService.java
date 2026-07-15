@@ -13,13 +13,20 @@ public class UserService {
 
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+
     }
 
 public String  printMessage(){
     return "HELLO 12345";
 }
-    public String registerUser(RegisterRequest request) {
 
+    public String registerUser(RegisterRequest request) {
+        if(userRepository.existsByEmail(request.getEmail())) {
+            return "Email already exists";
+        }
+        if(userRepository.existsByUsername(request.getUsername())){
+            return "Username already exists";
+        }
         try {
 
             User user = new User();
@@ -40,5 +47,6 @@ public String  printMessage(){
             return e.getClass().getName() + " : " + e.getMessage();
 
         }
+
     }
 }
